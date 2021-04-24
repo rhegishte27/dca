@@ -1,0 +1,75 @@
+parameters:
+  - name: jdkVersionOption
+    type: string
+    default: "1.11"
+  - name: jdkArchitectureOption
+    type: string
+    default: "x64"
+  - name: mavenPomFile
+    type: string
+    default: "./pom.xml"
+  - name: mavenOptions
+    type: string
+    default: "-Xmx1024m"
+  - name: javaHomeOption
+    type: string
+    default: "JDKVersion"
+  - name: agentPool
+    type: string
+    default: "ubuntu-latest"
+  - name: artifactStagingDirectory
+    type: string
+    default: ""
+
+stages:
+- stage: Commit
+  jobs:
+  - job: Commit_Code
+    displayName: Validate Code
+    pool:
+      name: ${{ parameters.AgentPool}}
+
+    steps:
+    - task: Bash@3
+      displayName: 'Install Yarn Package'
+      inputs:
+        targetType: 'inline'
+        script: 'yarnpkg'
+        workingDirectory: '$(Build.SourcesDirectory)/react'
+
+    - task: Bash@3
+      displayName: 'tslint'
+      inputs:
+        targetType: 'inline'
+        script: 'yarnpkg lint'
+        workingDirectory: '$(Build.SourcesDirectory)/react'
+
+    - task: Maven@3
+      displayName: 'Checkstyle'
+      inputs:
+        mavenPomFile: ${{ parameters.mavenPomFile }}
+        mavenOptions: ${{ parameters.mavenOptions }}
+        javaHomeOption: ${{ parameters.javaHomeOption }}
+        jdkVersionOption: ${{ parameters.jdkVersionOption }}
+        jdkArchitectureOption: ${{ parameters.jdkArchitectureOption }}
+        goals: 'checkstyle:check'
+
+    - task: Maven@3
+      displayName: 'SpotBugs'
+      inputs:
+        mavenPomFile: ${{ parameters.mavenPomFile }}
+        mavenOptions: ${{ parameters.mavenOptions }}
+        javaHomeOption: ${{ parameters.javaHomeOption }}
+        jdkVersionOption: ${{ parameters.jdkVersionOption }}
+        jdkArchitectureOption: ${{ parameters.jdkArchitectureOption }}
+        goals: 'compile -Dcheckstyle.skip=true -Djacoco.skip=true spotbugs:check'
+
+    - task: Maven@3
+      displayName: 'Unit Tests'
+      inputs:
+        mavenPomFile: ${{ parameters.mavenPomFile }}
+        mavenOptions: ${{ parameters.mavenOptions }}
+        javaHomeOption: ${{ parameters.javaHomeOption }}
+        jdkVersionOption: ${{ parameters.jdkVersionOption }}
+        jdkArchitectureOption: ${{ parameters.jdkArchitectureOption }}
+        goals: 'test -Dcheckstyle.skip=true -Dspotbugs.skip=true -Djacoco.skip=true'

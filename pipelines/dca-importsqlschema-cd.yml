@@ -1,0 +1,42 @@
+#trigger: none
+trigger:
+  #batch: true
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - database
+
+variables:
+  - name: azureSubscription
+    value: "Mahindra Common Subscription"
+  - name: cicdScriptDirectory
+    value: '$(Build.SourcesDirectory)\pipelines\scripts'
+  - name: sqlScriptsPath
+    value: $(Build.SourcesDirectory)\database\sqlserver
+  - name: sqlServerName
+    value: sql-dca-nprod-cace.database.windows.net
+
+stages:
+- template: templates/dca-sql-build-stage.yml
+  parameters:
+    pipelineScriptsPath: $(cicdScriptDirectory)
+    sqlScriptsPath: $(sqlScriptsPath)
+
+- template: templates/dca-sql-deploy-stage.yml
+  parameters:
+    environmentName: "DEV"
+    sqlServerName: $(sqlServerName)
+    sqlDatabaseName: sqldb-dcadb-dev-001
+    variableGroup: sql-dev-shared
+    azureSubscription: $(azureSubscription)
+
+- template: templates/dca-sql-deploy-stage.yml
+  parameters:
+    environmentName: "TST"
+    sqlServerName: $(sqlServerName)
+    sqlDatabaseName: sqldb-dcadb-tst-001
+    variableGroup: sql-tst-shared
+    azureSubscription: $(azureSubscription)
+

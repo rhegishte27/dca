@@ -1,0 +1,25 @@
+{
+    "title": "Ubicación",
+    "titlePlural": "Ubicaciones",
+    "setLocation": "Establecer ubicación",
+    "identifier": "Identificador",
+    "locationType": "Tipo de ubicación",
+    "path": "Ruta",
+    "serverName": "Nombre del servidor",
+    "userName": "Usuario",
+    "userPassword": "Contraseña",
+    "platformType": "Sistema operativo",
+
+    "locationTypeEnum": {
+        "network": "Red",
+        "ftp": "FTP"
+    },
+
+    "platformTypeEnum": {
+        "windowsUnix": "Windows/UNIX",
+        "mainframe": "Mainframe",
+        "as400": "AS/400",
+        "as400-2": "AS/400-2",
+        "vseBim": "VSE/BIM"
+    }
+}

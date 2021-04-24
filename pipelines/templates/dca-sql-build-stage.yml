@@ -1,0 +1,39 @@
+parameters:
+  - name: sqlScriptsPath
+    type: string
+    default: '$(Build.SourcesDirectory)\database\sqlserver'
+  - name: pipelineScriptsPath
+    type: string
+    default: '$(Build.SourcesDirectory)\pipelines\scripts'
+  - name: agentPool
+    type: string
+    default: "ci-agent-pool-windows"
+
+stages:
+- stage: Create_SQL_Artifact
+  dependsOn: Check     
+  condition: and(succeeded(), eq(dependencies.Check.outputs['SQL_CheckChanges.check_sql_changes.SQL_CODE_CHANGED'], 'true'))
+
+  displayName: Create SQL Artifact
+
+  jobs:
+  - job: Build_SQL_Package
+    displayName: Build SQL Package
+    pool:
+      name: '${{ parameters.agentPool }}'
+    
+    steps:
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          copy-item ${{ parameters.pipelineScriptsPath }}\update-sqlscripts.ps1 -destination $(Build.ArtifactStagingDirectory)\update-sqlscripts.ps1
+          copy-item ${{ parameters.sqlScriptsPath }}\* -destination $(Build.ArtifactStagingDirectory)
+        errorActionPreference: stop
+        pwsh: true
+      displayName: Copy SQL Files to artifact   
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathToPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: sqlimport

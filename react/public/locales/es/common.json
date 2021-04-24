@@ -1,0 +1,24 @@
+{
+    "button": {
+        "add": "+ Añadir {{what}}",
+        "edit": "Cambiar",
+        "delete": "Borrar",
+        "save": "Salvar",
+        "cancel": "Cancelar",
+        "yes": "Si",
+        "no": "No",
+        "browse": "Buscar",
+        "select": "Seleccione",
+        "createFolder": "Crear carpeta",
+        "set": "Establecer",
+        "import": "Importar"
+    },
+    "number": "número",
+    "actions": "acciones",
+    "explorer": "explorador",
+    "underConstruction": "En construcción",
+    "dca": "DCA",
+    "enable":"Habilitado",
+    "disable":"Desactivado",
+    "status":"Estado"
+}

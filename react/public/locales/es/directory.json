@@ -1,0 +1,9 @@
+{
+    "folderName": "",
+    "message": {
+        "enterFolderName": ""
+    },
+    "validation": {
+        "folderNameDuplicated": ""
+    }
+}

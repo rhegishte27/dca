@@ -1,0 +1,13 @@
+{
+    "title": "Setting",
+    "language": "Language",
+    "tokenDuration": "Maximum period of inactivity (minutes)",
+    "commonFolder": "Common folder",
+    "defaultImportFolder": "Default import folder",
+    "defaultExportFolder": "Default export folder",
+    "defaultDownloadFolder": "Default download folder",
+    "message": {
+        "pathFormat": "Path invalid",
+        "pathSubFolder": "Path must be sub folder of Common Folder"
+    }
+}

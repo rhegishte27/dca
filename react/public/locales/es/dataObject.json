@@ -1,0 +1,55 @@
+{
+    "title": "Objeto de dato",
+    "titlePlural": "Objetos de datos",
+
+    "identifier": "Identificador",
+    "description": "Descripción",
+    "file": "Archivo",
+    "fileContents": "Contenido del archivo",
+    "setDataObject": "Establecer objetos de datos",
+    "fileType": "Tipo del archivo",
+    "fileLocationType": "Tipo del ubicación del archivo",
+    "location": "Ubicación",
+
+    "dataObjectTypeEnum": {
+        "cobolCopybook": "COBOL copybook",
+        "javaClass": "Clase de Java",
+        "ddl": "DDL",
+        "xml": "XML",
+        "mainframeAssembler": "Mainframe assembler"
+    },
+
+    "dataObjectLocationTypeEnum": {
+        "myComputer": "Mi PC",
+        "dcaServer": "Servidor de DCA",
+        "ftp": "FTP"
+    },
+
+    "dataObjectStatusEnum": {
+        "success": "Éxito",
+        "warning": "Advertencia",
+        "error": "Error"
+    },
+
+    "message": {
+        "overrideConfirmation": "Objeto de datos {{what}} ya existe.  Desea reemplazarlo?",
+        "fileMatchSelectedType": "Contenido del archivo coincide con el tipo de archivo seleccionado",
+        "fileNotMatchSelectedType": "Contenido del archivo no coincide con el tipo de archivo seleccionado",
+        "settingsIsRequired": "",
+        "identifierCannotBeCobolReservedWord": "El identificador no puede ser una palabra reservada de COBOL"
+    },
+    "selectFiles": "Selecciona archivos",
+    "createDataObjects": "Crear objetos de datos",
+    "selectedSystem": "Systema seleccionado",
+    "selectedFileType": "Tipo del archivo seleccionado",
+    "selectedFiles": "Archivos seleccionados",
+    "status": "Estatus",
+    "notSelected": "No Seleccionado",
+    "selectFilesMatchingExpression": "Seleccionar archivos que concuerden con expresión",
+    "result": "",
+    "selectImport": "",
+    "source": "",
+    "system": "Sistema",
+    "cobolLayoutSourceFile": ""
+
+}

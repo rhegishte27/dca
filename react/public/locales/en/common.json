@@ -1,0 +1,25 @@
+{
+    "button": {
+        "add": "+ Add {{what}}",
+        "edit": "Edit",
+        "delete": "Delete",
+        "save": "Save",
+        "cancel": "Cancel",
+        "yes": "Yes",
+        "no": "No",
+        "browse": "Browse",
+        "select": "Select",
+        "createFolder": "Create folder",
+        "set": "Set",
+        "import": "Import"
+    },
+
+    "number": "Number",
+    "actions": "Actions",
+    "explorer": "Explorer",
+    "underConstruction": "Under construction",
+    "dca": "DCA",
+    "enable":"Enable",
+    "disable":"Disable",
+    "status": "Status"
+}

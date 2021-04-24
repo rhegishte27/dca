@@ -1,0 +1,55 @@
+{
+    "title": "Data object",
+    "titlePlural": "Data objects",
+
+    "identifier": "Identifier",
+    "description": "Description",
+    "file": "File",
+    "fileContents": "File contents",
+    "setDataObject": "Set data object",
+    "fileType": "File type",
+    "fileLocationType": "File location type",
+    "location": "Location",
+
+    "dataObjectTypeEnum": {
+        "cobolCopybook": "COBOL copybook",
+        "javaClass": "Java class",
+        "ddl": "DDL",
+        "xml": "XML",
+        "mainframeAssembler": "Mainframe assembler"
+    },
+
+    "dataObjectLocationTypeEnum": {
+        "myComputer": "My computer",
+        "dcaServer": "DCA server",
+        "ftp": "FTP"
+    },
+
+    "dataObjectStatusEnum": {
+        "success": "Success",
+        "warning": "Warning",
+        "error": "Error"
+    },
+
+    "message": {
+        "overrideConfirmation": "Data object {{what}} already exists. Do you want to replace it?",
+        "fileMatchSelectedType": "File contents match the selected file type",
+        "fileNotMatchSelectedType": "File contents do not match the selected file type",
+        "settingsIsRequired": "Settings is required",
+        "identifierCannotBeCobolReservedWord": "Identifier cannot be a COBOL reserved word"
+    },
+    "selectFiles": "Select files",
+    "createDataObjects": "Create data objects",
+    "selectedSystem": "Selected system",
+    "selectedFileType": "Selected file type",
+    "selectedFiles": "Selected files",
+    "status": "Status",
+    "notSelected": "Not selected",
+    "selectFilesMatchingExpression": "Select files matching expression",
+    "importSelected": "Import selected",
+    "result": "Result",
+    "selectImport": "Select import",
+    "source": "Source",
+    "system": "System",
+    "cobolLayoutSourceFile": "Char 1-6: optional line number\nChar 7: * or comment or else space\nChar 8-11 (Area A): Start 01-level defs. here\nChar 12-72 (Area B): Start non-01-level defs. here"
+}

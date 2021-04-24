@@ -1,0 +1,23 @@
+parameters:
+  - name: agentPool
+    type: string
+    default: "ubuntu-latest"
+
+  - name: pipelineScripts
+    type: string
+    default: '$(Build.SourcesDirectory)/pipelines/scripts'
+    
+stages:
+- stage: Check
+  jobs:
+  - job: SQL_CheckChanges
+    displayName: 'Check changes'
+    pool:
+      name: ${{ parameters.AgentPool }}
+    steps:
+    - task: Bash@3
+      inputs:
+        filePath: '${{ parameters.pipelineScripts }}/test-sourcecodeupdate.sh'
+        arguments: 'database/sqlserver/ SQL_CODE_CHANGED'
+      name: check_sql_changes
+      displayName: 'Check changed files in database/sqlserver/'

@@ -1,0 +1,15 @@
+{
+    "title": "System",
+    "titlePlural": "Systems",
+
+    "identifier": "Identifier",
+    "description": "Description",
+    "setSystem": "Set system",
+    "type": "System type",
+
+    "systemTypeEnum": {
+        "source": "Source",
+        "target": "Target",
+        "utility": "Utility"
+    }
+}

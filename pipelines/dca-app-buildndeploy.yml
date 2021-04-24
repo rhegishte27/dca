@@ -1,0 +1,95 @@
+trigger:
+  #batch: true
+  branches:
+    include:
+    - main
+  paths:
+    exclude:
+    - pipelines
+    - docker
+
+variables:
+  - template: variables/dca-cicd-mavenvariables.yml
+
+  - name: SQL_CODE_CHANGED
+    value: false
+  - name: azureSubscription
+    value: "Mahindra Common Subscription"
+  - name: sqlServerName
+    value: sql-dca-nprod-cace.database.windows.net
+
+stages:
+- template: templates/dca-check-stage.yml
+
+- template: templates/dca-sql-build-stage.yml
+
+- stage: DEV
+  dependsOn: 
+  - Check
+  - Create_SQL_Artifact
+  condition: in(dependencies.Create_SQL_Artifact.result, 'Succeeded', 'Skipped')
+
+  variables:
+  - group: SQL-DEV-Shared
+
+  jobs:
+  - template: templates/dca-build-job.yml
+    parameters:
+      jdkVersionOption: $(jdkVersionOption)
+      jdkArchitectureOption: $(jdkArchitectureOption)
+      mavenPomFile: $(mavenPomFile)
+      mavenOptions: $(mavenOptions)
+      javaHomeOption: $(javaHomeOption)
+      artifactStagingDirectory : $(Build.ArtifactStagingDirectory)
+      environmentName: "DEV"
+      webAppName: app-dca-dev-cace-001
+
+  - template: templates/dca-sql-deploy-job.yml
+    parameters:
+      environmentName: "DEV"
+      sqlServerName: $(sqlServerName)
+      sqlDatabaseName: sqldb-dcadb-dev-001
+      variableGroup: sql-dev-shared
+      azureSubscription: $(azureSubscription)
+        
+  - template: templates/dca-deploy-job.yml
+    parameters:
+      environmentName: "DEV"
+      webAppName: app-dca-dev-cace-001
+      variableGroup: sql-dev-shared
+
+- stage: TST
+  dependsOn: 
+  - DEV
+  - Check
+  - Create_SQL_Artifact
+  condition: in(dependencies.Create_SQL_Artifact.result, 'Succeeded', 'Skipped')
+
+  variables:
+  - group: SQL-TST-Shared
+
+  jobs:
+  - template: templates/dca-build-job.yml
+    parameters:
+      jdkVersionOption: $(jdkVersionOption)
+      jdkArchitectureOption: $(jdkArchitectureOption)
+      mavenPomFile: $(mavenPomFile)
+      mavenOptions: $(mavenOptions)
+      javaHomeOption: $(javaHomeOption)
+      artifactStagingDirectory : $(Build.ArtifactStagingDirectory)
+      environmentName: "TST"
+      webAppName: app-dca-tst-cace-001
+
+  - template: templates/dca-sql-deploy-job.yml
+    parameters:
+      environmentName: "TST"
+      sqlServerName: $(sqlServerName)
+      sqlDatabaseName: sqldb-dcadb-tst-001
+      variableGroup: sql-tst-shared
+      azureSubscription: $(azureSubscription)
+  
+  - template: templates/dca-deploy-job.yml
+    parameters:
+      environmentName: "TST"
+      webAppName: app-dca-tst-cace-001
+      variableGroup: sql-tst-shared

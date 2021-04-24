@@ -1,0 +1,9 @@
+{
+    "folderName": "Folder name",
+    "message": {
+        "enterFolderName": "Please enter folder name"
+    },
+    "validation": {
+        "folderNameDuplicated": "Folder already exists"
+    }
+}

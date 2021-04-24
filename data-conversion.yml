@@ -1,0 +1,30 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+  
+stages:
+  - stage: Build
+    displayName: Build Package
+    jobs:
+    - job: Build
+      displayName: Build
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+        - task: Bash@3
+          inputs:
+            filePath: 'pipelines/scripts/create-reactenvfile.sh'
+            arguments: '443 my'
+            failOnStderr: true
+          displayName: 'Create react .env file'      
+        - task: Maven@3
+          displayName: 'Build Rupesh Application'
+          inputs:
+            mavenPomFile: './pom.xml'
+            goals: 'clean package'
+            javaHomeOption: 'JDKVersion'
+            jdkVersionOption: '1.11'
+            mavenVersionOption: 'Default'
+            tomcatLocalhostPort: 443

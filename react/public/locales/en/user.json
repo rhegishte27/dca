@@ -1,0 +1,37 @@
+{
+    "title": "User",
+    "titlePlural": "Users",
+
+    "identifier": "Identifier",
+    "userName": "Name",
+    "password": "Password",
+    "passwordConfirmation": "Password confirmation",
+    "organization": "Organization",
+    "role": "Role",
+    "features": "Features",
+    "email": "E-mail address",
+    "language": "Language",
+
+    "message": {
+        "passwordFormat": "Password must be between 8 to 20 characters, no spaces, must contains at least one lowercase char, one uppercase char, one number and one special char"
+    },
+    "setUser": "Set user",
+    "featuresEnum": {
+        "systemSettings": "System settings",
+        "organizationsUsers": "Organizations and users",
+        "projectManagement": "Project management",
+        "projectDatamaps": "Project: Datamaps",
+        "projectTables": "Project: Tables",
+        "systemManagement": "System management",
+        "systemCodeAnalysis": "System: Code analysis",
+        "systemDataObjects": "System: Data objects",
+        "systemTransaction": "System: Transactions"
+    },
+    "rolesEnum": {
+        "systemAdministrator": "System administrator",
+        "projectManager": "Project manager",
+        "dmDeveloper": "DM developer",
+        "businessAnalyst": "Business analyst",
+        "conversionAnalyst": "Conversion analyst"
+    }
+}

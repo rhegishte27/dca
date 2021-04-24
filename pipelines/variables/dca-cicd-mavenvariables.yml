@@ -1,0 +1,11 @@
+variables:
+  - name: jdkVersionOption
+    value: "1.11"
+  - name: jdkArchitectureOption
+    value: "x64"
+  - name: mavenPomFile
+    value: "./pom.xml"
+  - name: mavenOptions
+    value: "-Xmx1024m"
+  - name: javaHomeOption
+    value: "JDKVersion"

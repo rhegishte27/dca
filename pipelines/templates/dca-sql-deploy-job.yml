@@ -1,0 +1,90 @@
+parameters:
+  - name: sqlDatabaseName
+    type: string
+    default: "sqldb-dcadb-sbx-001"
+  - name: sqlServerName
+    type: string
+    default: "sql-dca-sbx-cace.database.windows.net"
+  - name: environmentName
+    type: string
+    default: "sbx"
+  - name: azureSubscription
+    type: string
+    default: "Mahindra Common Subscription"
+  - name: variableGroup
+    type: string
+    default: "sql-sbx-shared"
+  - name: sqlScriptsPath
+    type: string
+    default: '$(System.ArtifactsDirectory)\sqlimport'
+  - name: agentPool
+    type: string
+    default: "ci-agent-pool-windows"
+
+jobs:
+- deployment: SQL_Import_${{ parameters.environmentName }}
+  dependsOn: Build_Application_${{ parameters.environmentName }}
+  condition: and(eq(stageDependencies.Check.SQL_CheckChanges.outputs['check_sql_changes.SQL_CODE_CHANGED'], 'true'), succeeded())
+  displayName: Import SQL Table and data
+  pool:
+    name: '${{ parameters.agentPool }}'
+
+  environment: 'dca-nonprod-${{ parameters.environmentName }}'
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: DownloadBuildArtifacts@0
+          inputs:
+            buildType: 'current'
+            downloadType: 'single'
+            artifactName: 'sqlimport'
+            downloadPath: '$(System.ArtifactsDirectory)'
+
+        - task: PowerShell@2
+          inputs:
+            targetType: 'FilePath'
+            filePath: '${{ parameters.sqlScriptsPath }}\update-sqlscripts.ps1'
+            arguments: '-sqlDatabaseName ${{ parameters.sqlDatabaseName }} -sqlScriptsPath ${{ parameters.sqlScriptsPath }}'
+            errorActionPreference: stop
+            pwsh: true
+          displayName: Update SQL script to use ${{ parameters.sqlDatabaseName }}
+
+        - task: SqlAzureDacpacDeployment@1
+          inputs:
+            azureSubscription: ${{ parameters.azureSubscription }}
+            AuthenticationType: 'server'
+            ServerName: '${{ parameters.sqlServerName }}'
+            DatabaseName: '${{ parameters.sqlDatabaseName }}'
+            SqlUsername: '$(sql-deploy-username)'
+            SqlPassword: '$(sql-deploy-password)'
+            deployType: 'SqlTask'
+            SqlFile: '${{ parameters.sqlScriptsPath }}\drop-tables.sql'
+            IpDetectionMethod: 'AutoDetect'
+          displayName: Drop All Tables
+
+        - task: SqlAzureDacpacDeployment@1
+          inputs:
+            azureSubscription: ${{ parameters.azureSubscription }}
+            AuthenticationType: 'server'
+            ServerName: '${{ parameters.sqlServerName }}'
+            DatabaseName: '${{ parameters.sqlDatabaseName }}'
+            SqlUsername: '$(sql-deploy-username)'
+            SqlPassword: '$(sql-deploy-password)'
+            deployType: 'SqlTask'
+            SqlFile: '${{ parameters.sqlScriptsPath }}\create-table.sql'
+            IpDetectionMethod: 'AutoDetect'
+          displayName: Create SQL Tables
+
+        - task: SqlAzureDacpacDeployment@1
+          inputs:
+            azureSubscription: ${{ parameters.azureSubscription }}
+            AuthenticationType: 'server'
+            ServerName: '${{ parameters.sqlServerName }}'
+            DatabaseName: '${{ parameters.sqlDatabaseName }}'
+            SqlUsername: '$(sql-deploy-username)'
+            SqlPassword: '$(sql-deploy-password)'
+            deployType: 'SqlTask'
+            SqlFile: '${{ parameters.sqlScriptsPath }}\insert-data.sql'
+            IpDetectionMethod: 'AutoDetect'
+          displayName: Import Data

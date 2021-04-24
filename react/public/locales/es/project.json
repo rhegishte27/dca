@@ -1,0 +1,47 @@
+{
+    "title": "Proyecto",
+    "titlePlural": "Proyectos",
+    "identifier": "Identificador",
+    "description": "Descripción",
+    "generatedCodeLanguage": "Lenguaje del código",
+    "compiler": "Compilador",
+    "synchronize": "Sincronizar con el ambiente de desarrollo",
+    "backup": "Respaldos",
+    "backupEvery": "Respaldar el proyecto cada",
+    "backupInterval": "",
+    "keepBackup": "",
+    "keepBackupInterval": "Mantenga las copias de seguridad del proyecto para",
+    "lastBackup": "",
+    "setProject": "Establecer proyecto",
+
+    "projectElementsEnum": {
+        "generatedCode": "Código generado",
+        "maps": "Mapas",
+        "tableDD": "TableDD",
+        "backups": "Respaldos"
+    },
+
+    "compilerEnum": {
+        "generic": "Genérico",
+        "microFocus": "MicroFocus",
+        "fujitsu": "Fujitsu",
+        "visualAge": "Visual Age",
+        "cobolII": "COBOL II",
+        "doubleByte": "Double Byte"
+    },
+
+    "backupsEnum":{
+        "days": "Dias",
+        "weeks": "Semanas",
+        "months": "Meses"
+    },
+
+    "elementType": "Tipo de componente",
+    "synchronizeProjectElements": "Sincronizar los objetos del proyecto",
+    "synchronizeProjectElement": "Sincronizar éste objeto del proyecto",
+    "location": "Ubicación",
+    "system": "Sistema",
+    "assignSystem": "Asignar la configuración del sistema y sincronización al proyecto",
+    "synchronizeSystem": "Sincronizar los objetos de datos de este sistema para este proyecto"
+}
+

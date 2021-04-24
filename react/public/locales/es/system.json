@@ -1,0 +1,14 @@
+{
+    "title": "Sistema",
+    "titlePlural": "Sistemas",
+
+    "identifier": "Identificador",
+    "description": "Descripción",
+    "setSystem": "Establecer sistema",
+    "type": "Tipo de sistema",
+    "systemTypeEnum": {
+        "source": "Origen",
+        "target": "Destino",
+        "utility": "Utilitario"
+    }
+}

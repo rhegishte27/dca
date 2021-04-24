@@ -1,0 +1,25 @@
+{
+    "title": "Location",
+    "titlePlural": "Locations",
+    "setLocation": "Set location",
+    "identifier": "Identifier",
+    "locationType": "Location type",
+    "path": "Path",
+    "serverName": "Server name",
+    "userName": "User name",
+    "userPassword": "User password",
+    "platformType": "Platform type",
+
+    "locationTypeEnum": {
+        "network": "Network",
+        "ftp": "FTP"
+    },
+
+    "platformTypeEnum": {
+        "windowsUnix": "Windows/UNIX",
+        "mainframe": "Mainframe",
+        "as400": "AS/400",
+        "as400-2": "AS/400-2",
+        "vseBim": "VSE/BIM"
+    }
+}

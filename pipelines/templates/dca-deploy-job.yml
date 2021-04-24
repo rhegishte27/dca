@@ -1,0 +1,83 @@
+parameters:
+  - name: region
+    type: string
+    default: "cace"
+  - name: resourceLocation
+    type: string
+    default: "CanadaCentral"
+  - name: environmentName
+    type: string
+    default: "sbx"
+  - name: azureSubscription
+    type: string
+    default: "Mahindra Common Subscription"
+  - name: cicdScriptDirectory
+    type: string
+    default: "$(Build.SourcesDirectory)/pipelines/scripts"
+  - name: warName
+    type: string
+    default: "DCA.war"
+  - name: agentPool
+    type: string
+    default: "ubuntu-latest"
+  - name: webAppType
+    type: string
+    default: "webApp"
+  - name: webAppName
+    type: string
+    default: "app-dca-sbx-cace-001"
+  - name: webAppStack
+    type: string
+    default: "TOMCAT|9.0-java11"
+  - name: variableGroup
+    type: string
+    default: "sql-sbx-shared"    
+
+jobs:
+- deployment: Deploy_${{ parameters.environmentName }}
+  dependsOn: SQL_Import_${{ parameters.environmentName }}
+  condition: in(dependencies.SQL_Import_${{ parameters.environmentName }}.result, 'Succeeded', 'Skipped')
+
+  variables:
+  - name: warPath
+    value: $(System.ArtifactsDirectory)/war${{ parameters.environmentName }}/${{ parameters.warName }}
+    
+  displayName: Deploy ${{ parameters.environmentName }} Environment
+  pool:
+    name: '${{ parameters.agentPool }}'
+
+  environment: 'dca-nonprod-${{ parameters.environmentName }}'
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: DownloadBuildArtifacts@0
+          inputs:
+            buildType: 'current'
+            downloadType: 'single'
+            artifactName: 'war${{ parameters.environmentName }}'
+            downloadPath: '$(System.ArtifactsDirectory)'
+
+        - task: Bash@3
+          inputs:
+            targetType: 'inline'
+            script: | 
+              echo "Renaming war file..."
+              mv $SYSTEM_ARTIFACTSDIRECTORY/war${{ parameters.environmentName }}/${{ parameters.warName }} $SYSTEM_ARTIFACTSDIRECTORY/war${{ parameters.environmentName }}/ROOT.war
+              echo "Updating AzDO warPath variable"...
+              echo "##vso[task.setvariable variable=warPath]$SYSTEM_ARTIFACTSDIRECTORY/war${{ parameters.environmentName }}/ROOT.war"
+          displayName: 'Prepare WAR file deployment'
+
+        - task: AzureRmWebAppDeployment@4
+          inputs:
+            ConnectionType: 'AzureRM'
+            azureSubscription: ${{ parameters.azureSubscription }}
+            appType: '${{ parameters.webAppType }}'
+            WebAppName: '${{ parameters.webAppName }}'
+            Package: '$(warPath)'
+            #packageForLinux: '$(warPath)'
+            #RuntimeStack: '${{ parameters.webAppStack }}'
+
+
+
+#Publish-AzWebApp -ResourceGroupName rg-apps-nprod-cace -ArchivePath DCA.war -Force -Name app-dca-dev-cace-001

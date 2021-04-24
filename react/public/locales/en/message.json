@@ -1,0 +1,30 @@
+{
+    "confirmation": {
+        "quitEditTitle": "Your changes have not been saved.",
+        "quitEditDetail": "Exit and lose changes?",
+        "delete": "Are you sure you want to delete {{what}}?",
+        "deleteMultiple": "Are you sure you want to delete these items ?"
+    },
+
+    "success": {
+        "delete": "INFORM: {{what}} has been deleted",
+        "save": "INFORM: {{what}} successfully saved"
+    },
+
+    "validation": {
+        "allRequired": "All fields are required",
+        "required": "{{what}} is required",
+        "sizeLimit": "{{what}} length should be between {{min}} and {{max}}",
+        "numberRange": "{{what}} should be between {{min}} and {{max}}",
+        "isNumber": "{{what}} should be a number",
+        "greaterThanZero": "{{what}} should be greater than 0",
+        "pattern": "{{what}} must start with an alphabetic character and cannot include spaces or special characters except dash",
+        "invalid": "{{what}} is not valid",
+        "match": "{{what1}} does not match {{what2}}",
+        "path": "A valid path is required"
+    },
+
+    "error": {
+        "readingFile": "Error reading file"
+    }
+}

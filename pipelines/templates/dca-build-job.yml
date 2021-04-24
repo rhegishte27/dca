@@ -1,0 +1,74 @@
+parameters:
+  - name: agentPool
+    type: string
+    default: "ubuntu-latest"
+
+  - name: jdkVersionOption
+    type: string
+    default: "1.11"
+  - name: jdkArchitectureOption
+    type: string
+    default: "x64"
+  - name: mavenPomFile
+    type: string
+    default: "./pom.xml"
+  - name: mavenOptions
+    type: string
+    default: "-Xmx1024m"
+  - name: javaHomeOption
+    type: string
+    default: "JDKVersion"
+  - name: tomcatLocalhostPort
+    type: number
+    default: 443
+
+  - name: artifactStagingDirectory
+    type: string
+    default: ""
+  - name: pipelineScripts
+    type: string
+    default: '$(Build.SourcesDirectory)/pipelines/scripts'
+
+  - name: environmentName
+    type: string
+    default: "sbx"
+  - name: webAppName
+    type: string
+    default: "app-dca-sbx-cace-001"
+  
+jobs:
+- job: Build_Application_${{ parameters.environmentName }}
+  displayName: Build DCA War for ${{ parameters.environmentName }}
+  pool:
+    name: ${{ parameters.AgentPool}}
+
+  steps:
+  - task: Bash@3
+    inputs:
+      filePath: '${{ parameters.pipelineScripts }}/create-reactenvfile.sh'
+      arguments: '${{ parameters.tomcatLocalhostPort }} ${{ parameters.webAppName }}'
+      failOnStderr: true
+    displayName: 'Create react .env file'
+    
+  - task: Maven@3
+    displayName: 'Build DCA Application'
+    inputs:
+      mavenPomFile: ${{ parameters.mavenPomFile }}
+      mavenOptions: ${{ parameters.mavenOptions }}
+      javaHomeOption: ${{ parameters.javaHomeOption }}
+      jdkVersionOption: ${{ parameters.jdkVersionOption }}
+      jdkArchitectureOption: ${{ parameters.jdkArchitectureOption }}
+      goals: 'clean package'
+
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: |
+        cp /agent/_work/1/s/application/target/DCA.war ${{ parameters.artifactStagingDirectory }}
+    displayName: 'Copy WAR to Artifact folder'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '${{ parameters.artifactStagingDirectory }}'
+      artifactName: war${{ parameters.environmentName }}
+    displayName: Create Artifact

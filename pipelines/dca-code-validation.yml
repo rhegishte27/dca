@@ -1,0 +1,24 @@
+trigger:
+  #batch: true
+  branches:
+    include:
+    - feature/*
+    - bugfix/*
+    - release/*
+    - hotfix/*
+  paths:
+    exclude:
+    - pipelines
+    - docker
+
+variables:
+  - template: variables/dca-cicd-mavenvariables.yml
+
+stages:
+- template: templates/dca-validation-stage.yml
+  parameters:
+    jdkVersionOption: $(jdkVersionOption)
+    jdkArchitectureOption: $(jdkArchitectureOption)
+    mavenPomFile: $(mavenPomFile)
+    mavenOptions: $(mavenOptions)
+    javaHomeOption: $(javaHomeOption)

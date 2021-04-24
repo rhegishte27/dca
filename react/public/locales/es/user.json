@@ -1,0 +1,37 @@
+{
+    "title": "Usuario",
+    "titlePlural": "Usuarios",
+
+    "identifier": "Identificador",
+    "userName": "Nombre",
+    "password": "Contraseña",
+    "passwordConfirmation": "Confirmación de contraseña",
+    "organization": "Organización",
+    "role": "Rol",
+    "features": "Funcionalidades",
+    "email": "Correo electrónico",
+    "language": "Lenguaje",
+
+    "message": {
+        "passwordFormat": "La contraseña debe ser de 8 a 20 caracteres, sin espacios y debe contener al menos un carácter en minúscula, un carácter en mayúscula, un número y un carácter especial"
+    },
+    "setUser": "Establecer usuario",
+    "featuresEnum": {
+        "systemSettings": "Configuración del sistema",
+        "organizationsUsers": "Organizaciones y usuarios",
+        "projectManagement": "Administración del proyecto",
+        "projectDatamaps": "Proyecto: Mapas",
+        "projectTables": "Proyecto: Tablas",
+        "systemManagement": "Administración del sistema",
+        "systemCodeAnalysis": "Sistema: Análisis de código",
+        "systemDataObjects": "Sistema: Objetos de datos",
+        "systemTransaction": "Sistema: Transacciones"
+    },
+    "rolesEnum": {
+        "systemAdministrator": "Administrador del sistema",
+        "projectManager": "Administrador del proyecto",
+        "dmDeveloper": "Desarrollador de migración de datos",
+        "businessAnalyst": "Analista de negocio",
+        "conversionAnalyst": "Analista de conversión"
+    }
+}

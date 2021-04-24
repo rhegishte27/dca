@@ -1,0 +1,47 @@
+{
+    "title": "Project",
+    "titlePlural": "Projects",
+
+    "identifier": "Identifier",
+    "description": "Description",
+    "generatedCodeLanguage": "Generated code language",
+    "compiler": "Compiler",
+    "synchronize": "Synchronize to development environment",
+    "backup": "Backups",
+    "backupEvery": "Backup project every",
+    "backupInterval": "Backup interval",
+    "keepBackup": "Keep project backups for",
+    "keepBackupInterval": "Backup keep interval",
+    "lastBackup": "Last backup",
+    "setProject": "Set project",
+
+    "projectElementsEnum": {
+        "generatedCode": "Generated code",
+        "maps": "Maps",
+        "tableDD": "TableDD",
+        "backups": "Backups"
+    },
+
+    "compilerEnum": {
+        "generic": "Generic",
+        "microFocus": "MicroFocus",
+        "fujitsu": "Fujitsu",
+        "visualAge": "Visual Age",
+        "cobolII": "COBOL II",
+        "doubleByte": "Double Byte"
+    },
+
+    "backupsEnum":{
+        "days": "Days",
+        "weeks": "Weeks",
+        "months": "Months"
+    },
+
+    "elementType": "Element type",
+    "synchronizeProjectElements": "Synchronize project elements",
+    "synchronizeProjectElement": "Synchronize this project element",
+    "location": "Location",
+    "system": "System",
+    "assignSystem": "Assign system and synchronization settings to project",
+    "synchronizeSystem": "Synchronize this system's Data Objects for this project"
+}

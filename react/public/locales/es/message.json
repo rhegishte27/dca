@@ -1,0 +1,31 @@
+{
+    "confirmation": {
+        "quitEditTitle": "Sus cambios no han sido guardados.",
+        "quitEditDetail": "¿Desea salir y perder los cambios?",
+        "delete": "¿Seguro que desea eliminar {{what}}?",
+        "deleteMultiple": "¿Está seguro que desea eliminar estos objetos?"
+    },
+
+    "success": {
+        "delete": "INFORMACIÓN: {{what}} ha sido eliminado",
+        "save": "INFORMACIÓN: {{what}} guardado exitosamente"
+    },
+
+    "validation": {
+        "allRequired": "Todos los campos son requeridos",
+        "required": "{{what}} es requerido",
+        "sizeLimit": "Longitud del {{what}} debe ser entre {{min}} y {{max}}",
+        "numberRange":"{{what}} debe estar entre {{min}} y {{max}}",
+        "isNumber": "{{what}} debe ser un número",
+        "greaterThanZero": "{{what}} debe ser mayor que 0",
+        "pattern": "{{what}} debe comenzar con un caracter alfanumérico y no puede incluir espacios o caracteres especiales, excepto un guión",
+        "invalid": "{{what}} no es válido",
+        "match": "{{what1}} no es igual a {{what2}}",
+        "path": "Se requiere una ruta válida"
+    },
+
+    "error": {
+        "readingFile": ""
+    }
+}
+
